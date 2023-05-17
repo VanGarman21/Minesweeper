@@ -59,19 +59,41 @@ public class Minesweeper extends JFrame {
   }
 
  
+    private void winGame() {
+      JOptionPane.showMessageDialog(this, "You won!");
+      System.exit(0);
+    }
+
+    private void loseGame() {
+      for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+          if (mines[i][j]) {
+            buttons[i][j].setText("*");
+          }
+          buttons[i][j].setEnabled(false);
+        }
+      }
+      JOptionPane.showMessageDialog(this, "You lost.");
+      System.exit(0);
+    }
 
     private class CellClickListener implements ActionListener {
+      private int i;
+      private int j;
 
-		public CellClickListener(int i, int j) {
-			// TODO Auto-generated constructor stub
-		}
+      public CellClickListener(int i, int j) {
+        this.i = i;
+        this.j = j;
+      }
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-     
+      public void actionPerformed(ActionEvent e) {
+        uncoverCell(i, j);
+      }
+    }
+
+    public static void main(String[] args) {
+      SwingUtilities.invokeLater(() -> {
+        new Minesweeper();
+      });
     }
   }
-
